@@ -1,1 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نظام Valet لإدارة السيارات</title>
 
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,Tahoma,sans-serif;
+ background:#f4f6f8;
+ color:#18212b
+}
+header{
+ background:#111827;
+ color:white;
+ padding:18px 16px;
+ position:sticky;
+ top:0;
+ z-index:10;
+ box-shadow:0 2px 10px #0002
+}
+.header{
+ max-width:900px;
+ margin:auto;
+ display:flex;
+ justify-content:space-between;
+ align-items:center
+}
+.logo{font-size:22px;font-weight:bold}
+.logo small{display:block;font-size:11px;color:#b9c2cf;margin-top:4px}
+main{max-width:900px;margin:auto;padding:16px 12px 90px}
+.tabs{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:8px;
+ margin-bottom:15px
+}
+.tab{
+ border:0;
+ padding:14px 5px;
+ border-radius:10px;
+ background:white;
+ font-size:15px;
+ font-weight:bold;
+ color:#374151
+}
+.tab.active{background:#111827;color:white}
+.screen{display:none}
+.screen.active{display:block}
+.card{
+ background:white;
+ border-radius:14px;
+ padding:18px;
+ margin-bottom:15px;
+ box-shadow:0 2px 12px #0000000d
+}
+h2{font-size:21px;margin:0 0 16px}
+h3{font-size:17px;margin:0 0 12px}
+label{
+ display:block;
+ font-size:13px;
+ font-weight:bold;
+ margin:12px 0 6px
+}
+input,select,textarea{
+ width:100%;
+ border:1px solid #d7dce2;
+ border-radius:9px;
+ padding:13px;
+ font-size:16px;
+ background:#fff
+}
+textarea{min-height:90px;resize:vertical}
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px
+}
+.full{grid-column:1/-1}
+button{
+ border:0;
+ border-radius:10px;
+ padding:13px 16px;
+ font-size:15px;
+ font-weight:bold;
+ cursor:pointer
+}
+.primary{background:#111827;color:white;width:100%;margin-top:16px}
+.secondary{background:#e9edf2;color:#17202a}
+.danger{background:#fee2e2;color:#991b1b}
+.success{background:#dcfce7;color:#166534}
+.photo-box{
+ border:2px dashed #cbd5e1;
+ border-radius:12px;
+ padding:18px;
+ text-align:center;
+ margin-top:10px
+}
+.photos{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:8px;
+ margin-top:10px
+}
+.photos img{
+ width:100%;
+ height:90px;
+ object-fit:cover;
+ border-radius:8px
+}
+.ticket{
+ text-align:center;
+ background:#111827;
+ color:white;
+ border-radius:14px;
+ padding:18px;
+ margin-bottom:15px
+}
+.ticket-number{
+ font-size:34px;
+ font-weight:bold;
+ letter-spacing:2px;
+ margin:8px 0
+}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:8px
+}
+.stat{
+ background:white;
+ padding:15px 8px;
+ text-align:center;
+ border-radius:12px
+}
+.stat b{display:block;font-size:24px}
+.vehicle{
+ background:white;
+ border-radius:12px;
+ padding:15px;
+ margin-bottom:10px;
+ border-right:4px solid #111827
+}
+.vehicle-top{
+ display:flex;
+ justify-content:space-between;
+ gap:8px;
+ align-items:center
+}
+.badge{
+ background:#fff7ed;
+ color:#9a3412;
+ border-radius:20px;
+ padding:5px 9px;
+ font-size:12px
+}
+.muted{color:#64748b;font-size:13px}
+.empty{text-align:center;color:#64748b;padding:30px}
+.notice{
+ background:#eff6ff;
+ color:#1d4ed8;
+ padding:12px;
+ border-radius:10px;
+ font-size:13px;
+ margin-bottom:12px
+}
+@media(max-width:600px){
+ .grid{grid-template-columns:1fr}
+ .full{grid-column:auto}
+ .tabs{position:sticky;top:72px;z-index:5}
+ .photos{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="header">
+  <div class="logo">
+   VALET
+   <small>نظام إدارة واستلام وتسليم السيارات</small>
+  </div>
+  <div id="clock"></div>
+ </div>
+</header>
+
+<main>
+
+<div class="tabs">
+ <button class="tab active" onclick="showScreen('receive',this)">استلام سيارة</button>
+ <button class="tab" onclick="showScreen('cars',this)">السيارات</button>
+ <button class="tab" onclick="showScreen('search',this)">بحث وتسليم</button>
+</div>
+
+<!-- الاستلام -->
+<section id="receive" class="screen active">
+
+ <div class="notice">
+  عند استلام السيارة قم بتسجيل بياناتها وتصوير أي صدمات أو ملاحظات موجودة قبل إدخالها للموقف.
+ </div>
+
+ <div class="card">
+  <h2>🚗 تسجيل سيارة جديدة</h2>
+
+  <div class="grid">
+
+   <div>
+    <label>رقم الكرت *</label>
+    <input id="card
