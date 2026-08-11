@@ -2,176 +2,248 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>نظام Valet لإدارة السيارات</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نظام Valet</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+box-sizing:border-box;
+}
+
 body{
- margin:0;
- font-family:Arial,Tahoma,sans-serif;
- background:#f4f6f8;
- color:#18212b
+margin:0;
+font-family:Arial,Tahoma,sans-serif;
+background:#f4f5f7;
+color:#17202a;
 }
+
 header{
- background:#111827;
- color:white;
- padding:18px 16px;
- position:sticky;
- top:0;
- z-index:10;
- box-shadow:0 2px 10px #0002
+background:#111827;
+color:white;
+padding:18px;
 }
+
 .header{
- max-width:900px;
- margin:auto;
- display:flex;
- justify-content:space-between;
- align-items:center
+max-width:900px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
-.logo{font-size:22px;font-weight:bold}
-.logo small{display:block;font-size:11px;color:#b9c2cf;margin-top:4px}
-main{max-width:900px;margin:auto;padding:16px 12px 90px}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+}
+
+.logo small{
+display:block;
+font-size:11px;
+color:#cbd5e1;
+margin-top:5px;
+}
+
+main{
+max-width:900px;
+margin:auto;
+padding:15px 12px 80px;
+}
+
 .tabs{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:8px;
- margin-bottom:15px
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-bottom:15px;
 }
+
 .tab{
- border:0;
- padding:14px 5px;
- border-radius:10px;
- background:white;
- font-size:15px;
- font-weight:bold;
- color:#374151
+border:0;
+padding:15px 5px;
+border-radius:12px;
+background:white;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
 }
-.tab.active{background:#111827;color:white}
-.screen{display:none}
-.screen.active{display:block}
+
+.tab.active{
+background:#111827;
+color:white;
+}
+
+.screen{
+display:none;
+}
+
+.screen.active{
+display:block;
+}
+
 .card{
- background:white;
- border-radius:14px;
- padding:18px;
- margin-bottom:15px;
- box-shadow:0 2px 12px #0000000d
+background:white;
+border-radius:15px;
+padding:17px;
+margin-bottom:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
-h2{font-size:21px;margin:0 0 16px}
-h3{font-size:17px;margin:0 0 12px}
-label{
- display:block;
- font-size:13px;
- font-weight:bold;
- margin:12px 0 6px
+
+h2{
+margin:0 0 15px;
+font-size:20px;
 }
-input,select,textarea{
- width:100%;
- border:1px solid #d7dce2;
- border-radius:9px;
- padding:13px;
- font-size:16px;
- background:#fff
-}
-textarea{min-height:90px;resize:vertical}
+
 .grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
-.full{grid-column:1/-1}
-button{
- border:0;
- border-radius:10px;
- padding:13px 16px;
- font-size:15px;
- font-weight:bold;
- cursor:pointer
+
+.full{
+grid-column:1/-1;
 }
-.primary{background:#111827;color:white;width:100%;margin-top:16px}
-.secondary{background:#e9edf2;color:#17202a}
-.danger{background:#fee2e2;color:#991b1b}
-.success{background:#dcfce7;color:#166534}
-.photo-box{
- border:2px dashed #cbd5e1;
- border-radius:12px;
- padding:18px;
- text-align:center;
- margin-top:10px
+
+label{
+display:block;
+font-weight:bold;
+font-size:13px;
+margin-bottom:6px;
 }
-.photos{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:8px;
- margin-top:10px
+
+input,
+select,
+textarea{
+width:100%;
+padding:13px;
+border:1px solid #d6dbe1;
+border-radius:10px;
+font-size:16px;
+background:white;
 }
-.photos img{
- width:100%;
- height:90px;
- object-fit:cover;
- border-radius:8px
+
+textarea{
+min-height:90px;
+resize:vertical;
 }
-.ticket{
- text-align:center;
- background:#111827;
- color:white;
- border-radius:14px;
- padding:18px;
- margin-bottom:15px
+
+.btn{
+border:0;
+border-radius:10px;
+padding:13px 16px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
 }
-.ticket-number{
- font-size:34px;
- font-weight:bold;
- letter-spacing:2px;
- margin:8px 0
+
+.primary{
+background:#111827;
+color:white;
+width:100%;
+margin-top:15px;
 }
+
+.green{
+background:#0f9d67;
+color:white;
+}
+
+.gray{
+background:#e9edf2;
+color:#17202a;
+}
+
+.actions{
+display:flex;
+gap:8px;
+margin-top:12px;
+flex-wrap:wrap;
+}
+
 .stats{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:8px
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
 }
+
 .stat{
- background:white;
- padding:15px 8px;
- text-align:center;
- border-radius:12px
+background:white;
+border-radius:12px;
+padding:15px 5px;
+text-align:center;
 }
-.stat b{display:block;font-size:24px}
+
+.stat b{
+display:block;
+font-size:24px;
+margin-bottom:5px;
+}
+
+.stat span{
+font-size:12px;
+color:#667085;
+}
+
 .vehicle{
- background:white;
- border-radius:12px;
- padding:15px;
- margin-bottom:10px;
- border-right:4px solid #111827
+background:white;
+border-radius:13px;
+padding:15px;
+margin-bottom:10px;
+border-right:4px solid #111827;
 }
+
 .vehicle-top{
- display:flex;
- justify-content:space-between;
- gap:8px;
- align-items:center
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px;
 }
+
 .badge{
- background:#fff7ed;
- color:#9a3412;
- border-radius:20px;
- padding:5px 9px;
- font-size:12px
+background:#e7f7ef;
+color:#087443;
+padding:5px 9px;
+border-radius:20px;
+font-size:12px;
 }
-.muted{color:#64748b;font-size:13px}
-.empty{text-align:center;color:#64748b;padding:30px}
+
+.info{
+margin-top:10px;
+font-size:14px;
+line-height:1.8;
+color:#475467;
+}
+
+.empty{
+text-align:center;
+padding:30px 10px;
+color:#667085;
+}
+
 .notice{
- background:#eff6ff;
- color:#1d4ed8;
- padding:12px;
- border-radius:10px;
- font-size:13px;
- margin-bottom:12px
+background:#eef5ff;
+color:#2458a6;
+padding:13px;
+border-radius:12px;
+margin-bottom:15px;
+font-size:13px;
+line-height:1.7;
 }
+
 @media(max-width:600px){
- .grid{grid-template-columns:1fr}
- .full{grid-column:auto}
- .tabs{position:sticky;top:72px;z-index:5}
- .photos{grid-template-columns:repeat(2,1fr)}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.full{
+grid-column:auto;
+}
+
+.tabs{
+position:sticky;
+top:0;
+z-index:5;
+}
+
 }
 </style>
 </head>
@@ -179,35 +251,649 @@ button{
 <body>
 
 <header>
- <div class="header">
-  <div class="logo">
-   VALET
-   <small>نظام إدارة واستلام وتسليم السيارات</small>
-  </div>
-  <div id="clock"></div>
- </div>
+
+<div class="header">
+
+<div class="logo">
+VALET
+<small>نظام إدارة السيارات</small>
+</div>
+
+<div id="clock"></div>
+
+</div>
+
 </header>
 
 <main>
 
 <div class="tabs">
- <button class="tab active" onclick="showScreen('receive',this)">استلام سيارة</button>
- <button class="tab" onclick="showScreen('cars',this)">السيارات</button>
- <button class="tab" onclick="showScreen('search',this)">بحث وتسليم</button>
+
+<button class="tab active" data-screen="receive">
+استلام سيارة
+</button>
+
+<button class="tab" data-screen="cars">
+السيارات
+</button>
+
+<button class="tab" data-screen="search">
+بحث وتسليم
+</button>
+
 </div>
 
-<!-- الاستلام -->
+
+<!-- استلام السيارة -->
+
 <section id="receive" class="screen active">
 
- <div class="notice">
-  عند استلام السيارة قم بتسجيل بياناتها وتصوير أي صدمات أو ملاحظات موجودة قبل إدخالها للموقف.
- </div>
+<div class="notice">
+قم بتسجيل بيانات السيارة عند الاستلام قبل إدخالها إلى الموقف.
+</div>
 
- <div class="card">
-  <h2>🚗 تسجيل سيارة جديدة</h2>
+<div class="card">
 
-  <div class="grid">
+<h2>🚗 استلام سيارة</h2>
 
-   <div>
-    <label>رقم الكرت *</label>
-    <input id="card
+<form id="receiveForm">
+
+<div class="grid">
+
+<div>
+<label>رقم الكرت *</label>
+<input id="ticket" required placeholder="مثال 1025">
+</div>
+
+<div>
+<label>رقم اللوحة</label>
+<input id="plate" placeholder="1234 أ ب ج">
+</div>
+
+<div>
+<label>اسم العميل</label>
+<input id="customer" placeholder="اسم العميل">
+</div>
+
+<div>
+<label>رقم الجوال</label>
+<input id="phone" type="tel" placeholder="05xxxxxxxx">
+</div>
+
+<div>
+<label>نوع السيارة *</label>
+<input id="car" required placeholder="تويوتا كامري">
+</div>
+
+<div>
+<label>لون السيارة</label>
+<input id="color" placeholder="أبيض">
+</div>
+
+<div>
+<label>مكان الوقوف *</label>
+<input id="spot" required placeholder="A-12">
+</div>
+
+<div>
+<label>اسم الموظف</label>
+<input id="staff" placeholder="اسم الموظف">
+</div>
+
+<div class="full">
+<label>الأضرار والملاحظات</label>
+<textarea id="notes"
+placeholder="اكتب أي صدمة أو خدش أو ملاحظة موجودة مسبقاً"></textarea>
+</div>
+
+</div>
+
+<button class="btn primary" type="submit">
+تسجيل استلام السيارة
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- السيارات -->
+
+<section id="cars" class="screen">
+
+<div class="stats">
+
+<div class="stat">
+<b id="insideCount">0</b>
+<span>داخل الموقف</span>
+</div>
+
+<div class="stat">
+<b id="deliveredCount">0</b>
+<span>تم التسليم</span>
+</div>
+
+<div class="stat">
+<b id="totalCount">0</b>
+<span>الإجمالي</span>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>🚘 السيارات الموجودة</h2>
+
+<div id="carsList"></div>
+
+</div>
+
+</section>
+
+
+<!-- البحث -->
+
+<section id="search" class="screen">
+
+<div class="card">
+
+<h2>🔎 البحث عن سيارة</h2>
+
+<input
+id="searchInput"
+placeholder="رقم الكرت أو اللوحة أو الجوال أو الاسم"
+>
+
+<div id="searchResults"></div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<script>
+
+const STORAGE_KEY="valet_system_data";
+
+let cars=JSON.parse(
+localStorage.getItem(STORAGE_KEY)||"[]"
+);
+
+
+function saveData(){
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(cars)
+);
+
+}
+
+
+function escapeHTML(value){
+
+return String(value||"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function currentTime(){
+
+return new Date().toLocaleString("ar-SA");
+
+}
+
+
+function showScreen(screen){
+
+document
+.querySelectorAll(".screen")
+.forEach(function(el){
+el.classList.remove("active");
+});
+
+document
+.getElementById(screen)
+.classList.add("active");
+
+document
+.querySelectorAll(".tab")
+.forEach(function(btn){
+
+btn.classList.remove("active");
+
+if(btn.dataset.screen===screen){
+btn.classList.add("active");
+}
+
+});
+
+if(screen==="cars"){
+renderCars();
+}
+
+}
+
+
+document
+.querySelectorAll(".tab")
+.forEach(function(button){
+
+button.addEventListener("click",function(){
+
+showScreen(button.dataset.screen);
+
+});
+
+});
+
+
+/* تسجيل السيارة */
+
+document
+.getElementById("receiveForm")
+.addEventListener("submit",function(event){
+
+event.preventDefault();
+
+const ticket=
+document.getElementById("ticket").value.trim();
+
+const plate=
+document.getElementById("plate").value.trim();
+
+const car=
+document.getElementById("car").value.trim();
+
+const spot=
+document.getElementById("spot").value.trim();
+
+
+if(!ticket || !car || !spot){
+
+alert("يرجى تعبئة رقم الكرت ونوع السيارة ومكان الوقوف");
+
+return;
+
+}
+
+
+const duplicate=cars.some(function(item){
+
+return item.ticket===ticket &&
+item.status==="inside";
+
+});
+
+
+if(duplicate){
+
+alert("رقم الكرت مستخدم حاليًا");
+
+return;
+
+}
+
+
+const newCar={
+
+id:Date.now(),
+
+ticket:ticket,
+
+plate:plate,
+
+customer:
+document.getElementById("customer").value.trim(),
+
+phone:
+document.getElementById("phone").value.trim(),
+
+car:car,
+
+color:
+document.getElementById("color").value.trim(),
+
+spot:spot,
+
+staff:
+document.getElementById("staff").value.trim(),
+
+notes:
+document.getElementById("notes").value.trim(),
+
+receivedAt:currentTime(),
+
+deliveredAt:"",
+
+status:"inside"
+
+};
+
+
+cars.unshift(newCar);
+
+saveData();
+
+this.reset();
+
+updateStats();
+
+alert(
+"تم تسجيل السيارة بنجاح\n\n"+
+"رقم الكرت: "+ticket+
+"\nالموقف: "+spot
+);
+
+showScreen("cars");
+
+renderCars();
+
+});
+
+
+function updateStats(){
+
+document.getElementById("insideCount").textContent=
+cars.filter(function(c){
+return c.status==="inside";
+}).length;
+
+
+document.getElementById("deliveredCount").textContent=
+cars.filter(function(c){
+return c.status==="delivered";
+}).length;
+
+
+document.getElementById("totalCount").textContent=
+cars.length;
+
+}
+
+
+function renderCars(){
+
+const list=document.getElementById("carsList");
+
+const activeCars=cars.filter(function(c){
+return c.status==="inside";
+});
+
+
+if(activeCars.length===0){
+
+list.innerHTML=
+'<div class="empty">لا توجد سيارات داخل الموقف حاليًا</div>';
+
+updateStats();
+
+return;
+
+}
+
+
+list.innerHTML=activeCars.map(function(c){
+
+return `
+
+<div class="vehicle">
+
+<div class="vehicle-top">
+
+<strong>
+كرت ${escapeHTML(c.ticket)}
+</strong>
+
+<span class="badge">
+داخل الموقف
+</span>
+
+</div>
+
+<div class="info">
+
+<div>🚘 السيارة: <strong>${escapeHTML(c.car)}</strong></div>
+
+<div>🔢 اللوحة: <strong>${escapeHTML(c.plate||"غير مسجلة")}</strong></div>
+
+<div>👤 العميل: ${escapeHTML(c.customer||"غير مسجل")}</div>
+
+<div>📱 الجوال: ${escapeHTML(c.phone||"غير مسجل")}</div>
+
+<div>📍 الموقف: <strong>${escapeHTML(c.spot)}</strong></div>
+
+<div>🕐 الاستلام: ${escapeHTML(c.receivedAt)}</div>
+
+${c.notes?
+`<div>⚠️ الملاحظات: ${escapeHTML(c.notes)}</div>`
+:""}
+
+</div>
+
+<div class="actions">
+
+<button
+class="btn green"
+onclick="deliverCar(${c.id})"
+>
+تسليم السيارة
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+updateStats();
+
+}
+
+
+function searchCars(){
+
+const query=
+document
+.getElementById("searchInput")
+.value
+.trim()
+.toLowerCase();
+
+const results=
+document.getElementById("searchResults");
+
+
+if(!query){
+
+results.innerHTML="";
+
+return;
+
+}
+
+
+const found=cars.filter(function(c){
+
+return [
+
+c.ticket,
+c.plate,
+c.phone,
+c.customer,
+c.car
+
+].some(function(value){
+
+return String(value||"")
+.toLowerCase()
+.includes(query);
+
+});
+
+});
+
+
+if(found.length===0){
+
+results.innerHTML=
+'<div class="empty">لم يتم العثور على السيارة</div>';
+
+return;
+
+}
+
+
+results.innerHTML=found.map(function(c){
+
+return `
+
+<div class="vehicle">
+
+<div class="vehicle-top">
+
+<strong>
+كرت ${escapeHTML(c.ticket)}
+</strong>
+
+<span class="badge">
+${c.status==="inside"?"داخل الموقف":"تم التسليم"}
+</span>
+
+</div>
+
+<div class="info">
+
+<div>🚘 السيارة: ${escapeHTML(c.car)}</div>
+
+<div>🔢 اللوحة: ${escapeHTML(c.plate||"غير مسجلة")}</div>
+
+<div>👤 العميل: ${escapeHTML(c.customer||"غير مسجل")}</div>
+
+<div>📱 الجوال: ${escapeHTML(c.phone||"غير مسجل")}</div>
+
+<div>📍 الموقف: ${escapeHTML(c.spot)}</div>
+
+<div>🕐 الاستلام: ${escapeHTML(c.receivedAt)}</div>
+
+${c.deliveredAt?
+`<div>🕐 التسليم: ${escapeHTML(c.deliveredAt)}</div>`
+:""}
+
+${c.notes?
+`<div>⚠️ ${escapeHTML(c.notes)}</div>`
+:""}
+
+</div>
+
+${
+c.status==="inside"
+?
+`
+<div class="actions">
+
+<button
+class="btn green"
+onclick="deliverCar(${c.id})"
+>
+تسليم السيارة
+</button>
+
+</div>
+`
+:
+""
+}
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+document
+.getElementById("searchInput")
+.addEventListener("input",searchCars);
+
+
+function deliverCar(id){
+
+const car=cars.find(function(c){
+return c.id===id;
+});
+
+
+if(!car){
+return;
+}
+
+
+const confirmation=confirm(
+
+"هل تريد تأكيد تسليم السيارة؟\n\n"+
+"رقم الكرت: "+car.ticket+
+"\nاللوحة: "+(car.plate||"غير مسجلة")+
+"\nالموقف: "+car.spot
+
+);
+
+
+if(!confirmation){
+return;
+}
+
+
+car.status="delivered";
+
+car.deliveredAt=currentTime();
+
+
+saveData();
+
+updateStats();
+
+renderCars();
+
+searchCars();
+
+alert("تم تسجيل تسليم السيارة بنجاح");
+
+}
+
+
+function clock(){
+
+document.getElementById("clock").textContent=
+new Date().toLocaleTimeString("ar-SA",{
+hour:"2-digit",
+minute:"2-digit"
+});
+
+}
+
+setInterval(clock,1000);
+
+clock();
+
+updateStats();
+
+renderCars();
+
+</script>
+
+</body>
+</html>
