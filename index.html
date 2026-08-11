@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>UR VALET</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7f6;color:#123532;font-family:Tahoma,Arial,sans-serif}
+header{height:64px;background:#06332e;color:white;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;z-index:5}
+.logo{font-weight:900;font-size:20px}.logo small{display:block;font-size:8px;letter-spacing:1.4px;color:#9bd8c8}
+main{padding:16px;max-width:700px;margin:auto}.screen{display:none}.screen.active{display:block}
+h1{font-size:24px;margin:6px 0}.muted{color:#6c7d79;font-size:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat,.card{background:#fff;border:1px solid #dfe9e6;border-radius:14px;padding:15px;margin:10px 0}.stat b{font-size:26px;display:block;margin-top:5px}
+.btn{width:100%;border:0;border-radius:11px;padding:14px;margin-top:9px;font-weight:800;font-size:14px;background:#087c68;color:#fff}.btn.secondary{background:#fff;color:#087c68;border:1px solid #cfe0db}
+input,select,textarea{width:100%;padding:13px;border:1px solid #d9e5e1;border-radius:10px;margin:5px 0 10px;font:inherit;background:#fff}label{font-size:12px;font-weight:bold}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dfe9e6;display:grid;grid-template-columns:repeat(4,1fr);padding:7px;z-index:5}.nav button{border:0;background:none;padding:8px;font-size:11px;color:#506864}.nav button.on{color:#087c68;font-weight:bold}
+.spacer{height:75px}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.tag{display:inline-block;padding:5px 8px;border-radius:15px;background:#e8f6f1;color:#087c68;font-size:11px}
+.vehicle{background:#fff;border:1px solid #dfe9e6;border-radius:13px;padding:13px;margin:8px 0}.vehicle h3{margin:0 0 6px;font-size:16px}
+.photos{display:flex;gap:8px;flex-wrap:wrap}.photos img{width:105px;height:80px;object-fit:cover;border-radius:9px}
+.notice{background:#eaf7f3;color:#096a5b;padding:11px;border-radius:10px;font-size:12px;margin:9px 0}
+</style>
+</head>
+<body>
+<header><div class="logo">UR VALET<small>PARKING MANAGEMENT</small></div><div id="clock"></div></header>
+
+<main>
+<section id="home" class="screen active">
+<h1>لوحة التشغيل</h1><div class="muted">إدارة استلام وتسليم السيارات</div>
+<div class="grid">
+<div class="stat"><span class="muted">الإجمالي</span><b id="total">0</b></div>
+<div class="stat"><span class="muted">داخل المواقف</span><b id="active">0</b></div>
+<div class="stat"><span class="muted">تم التسليم</span><b id="delivered">0</b></div>
+<div class="stat"><span class="muted">أضرار مسجلة</span><b id="damage">0</b></div>
+</div>
+<button class="btn" onclick="show('intake')">＋ استلام سيارة جديدة</button>
+<div class="card"><h3>آخر السيارات</h3><div id="recent"></div></div>
+</section>
+
+<section id="intake" class="screen">
+<h1>استلام سيارة</h1><div class="muted">سجل السيارة قبل دخولها للمواقف</div>
+<div class="card">
+<label>رقم الكرت *</label><input id="card" placeholder="مثال 128">
+<label>رقم اللوحة *</label><input id="plate" placeholder="أ ب ج 1234">
+<div class="row"><div><label>نوع السيارة</label><input id="type" placeholder="تويوتا"></div><div><label>الموديل</label><input id="model" placeholder="كامري"></div></div>
+<div class="row"><div><label>اللون</label><input id="color"></div><div><label>اسم العميل</label><input id="customer"></div></div>
+<label>رقم الجوال</label><input id="phone" type="tel">
+<label>هل يوجد صدمات/خدوش سابقة؟</label><select id="damage"><option value="0">لا</option><option value="1">نعم</option></select>
+<label>صور السيارة</label><input id="photos" type="file" accept="image/*" multiple>
+<label>ملاحظات الأضرار</label><textarea id="notes" rows="3" placeholder="مثال: خدش في الباب الأمامي الأيسر"></textarea>
+<button class="btn" onclick="saveVehicle()">حفظ واستلام السيارة</button>
+</div>
+</section>
+
+<section id="cars" class="screen">
+<h1>السيارات</h1><input id="search" placeholder="ابحث بالكرت أو اللوحة أو العميل" oninput="renderCars()">
+<div id="carsList"></div>
+</section>
+
+<section id="deliver" class="screen">
+<h1>تسليم السيارة</h1><div class="muted">ابحث بالكرت أو اللوحة ثم راجع البيانات</div>
+<div class="card"><input id="deliverSearch" placeholder="رقم الكرت أو اللوحة" oninput="findDeliver()"><div id="deliverResult"></div></div>
+</section>
+<div class="spacer"></div>
+</main>
+
+<nav class="nav">
+<button id="nhome" class="on" onclick="show('home')">⌂<br>الرئيسية</button>
+<button id="nintake" onclick="show('intake')">＋<br>استلام</button>
+<button id="ncars" onclick="show('cars')">🚗<br>السيارات</button>
+<button id="ndeliver" onclick="show('deliver')">⇧<br>تسليم</button>
+</nav>
+
+<script>
+const KEY='ur_valet_mobile_data';
+let data=JSON.parse(localStorage.getItem(KEY)||'[]');
+
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function show(id){
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('on'));
+ let n=document.getElementById('n'+id); if(n)n.classList.add('on');
+ if(id==='home')renderHome(); if(id==='cars')renderCars(); if(id==='deliver')findDeliver();
+ window.scrollTo(0,0);
+}
+function saveVehicle(){
+ let card=document.getElementById('card').value.trim(), plate=document.getElementById('plate').value.trim();
+ if(!card||!plate){alert('أدخل رقم الكرت ورقم اللوحة');return}
+ if(data.some(v=>v.card===card && v.status!=='delivered')){alert('رقم الكرت مستخدم بالفعل');return}
+ let files=[...document.getElementById('photos').files];
+ let v={id:Date.now(),card,plate,type:val('type'),model:val('model'),color:val('color'),customer:val('customer'),phone:val('phone'),
+ damage:val('damage')==='1',notes:val('notes'),status:'active',created:new Date().toLocaleString('ar-SA'),photos:[]};
+ if(files.length){
+   let pending=files.length;
+   files.forEach(f=>{let r=new FileReader();r.onload=e=>{v.photos.push(e.target.result);pending--;if(!pending){data.unshift(v);save();finish(v)}};r.readAsDataURL(f)})
+ }else{data.unshift(v);save();finish(v)}
+}
+function finish(v){alert('تم استلام السيارة وربطها بالكرت #'+v.card);clearForm();show('cars')}
+function val(id){return document.getElementById(id).value}
+function clearForm(){['card','plate','type','model','color','customer','phone','notes'].forEach(id=>document.getElementById(id).value='');document.getElementById('damage').value='0';document.getElementById('photos').value=''}
+function renderHome(){
+ document.getElementById('total').textContent=data.length;
+ document.getElementById('active').textContent=data.filter(v=>v.status!=='delivered').length;
+ document.getElementById('delivered').textContent=data.filter(v=>v.status==='delivered').length;
+ document.getElementById('damage').textContent=data.filter(v=>v.damage).length;
+ document.getElementById('recent').innerHTML=data.slice(0,5).map(cardHtml).join('')||'<div class="muted">لا توجد سيارات بعد.</div>';
+}
+function cardHtml(v){
+ return `<div class="vehicle"><div class="row"><div><h3>#${v.card} — ${v.type||''} ${v.model||''}</h3><div class="muted">اللوحة: ${v.plate}</div></div><span class="tag">${v.status==='delivered'?'تم التسليم':'داخل المواقف'}</span></div><div class="muted">${v.damage?'⚠️ يوجد ضرر مسجل':'✓ لا يوجد ضرر مسجل'} ${v.customer?' — '+v.customer:''}</div></div>`
+}
+function renderCars(){
+ let q=(document.getElementById('search').value||'').toLowerCase();
+ let rows=data.filter(v=>(v.card+' '+v.plate+' '+v.customer+' '+v.type).toLowerCase().includes(q));
+ document.getElementById('carsList').innerHTML=rows.map(v=>`<div class="vehicle"><h3>#${v.card} — ${v.type||''} ${v.model||''}</h3><div>اللوحة: <b>${v.plate}</b></div><div class="muted">${v.customer||''} — ${v.created}</div><p>${v.damage?'⚠️ '+(v.notes||'ضرر مسجل'):'✓ لا توجد أضرار'}</p>${v.photos?.length?'<div class="photos">'+v.photos.map(p=>'<img src="'+p+'">').join('')+'</div>':''}<span class="tag">${v.status==='delivered'?'تم التسليم':'داخل المواقف'}</span></div>`).join('')||'<div class="notice">لا توجد نتائج.</div>';
+}
+function findDeliver(){
+ let q=(document.getElementById('deliverSearch').value||'').trim();
+ let v=data.find(x=>x.status!=='delivered'&&(x.card===q||x.plate===q));
+ if(!q){document.getElementById('deliverResult').innerHTML='';return}
+ if(!v){document.getElementById('deliverResult').innerHTML='<div class="notice">لم يتم العثور على سيارة نشطة.</div>';return}
+ document.getElementById('deliverResult').innerHTML=`<div class="vehicle"><h3>#${v.card} — ${v.type||''} ${v.model||''}</h3><p>اللوحة: <b>${v.plate}</b></p><p>${v.damage?'⚠️ '+(v.notes||'يوجد ضرر مسجل'):'✓ لا توجد أضرار مسجلة'}</p>${v.photos?.length?'<div class="photos">'+v.photos.map(p=>'<img src="'+p+'">').join('')+'</div>':''}<button class="btn" onclick="deliverCar(${v.id})">تأكيد تسليم السيارة</button></div>`;
+}
+function deliverCar(id){let v=data.find(x=>x.id===id);if(v){v.status='delivered';v.delivered=new Date().toLocaleString('ar-SA');save();alert('تم تسجيل تسليم السيارة');document.getElementById('deliverSearch').value='';findDeliver();renderHome()}}
+function clock(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'})}
+setInterval(clock,1000);clock();renderHome();
+</script>
+</body></html>
